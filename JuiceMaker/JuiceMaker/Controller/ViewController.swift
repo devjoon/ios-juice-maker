@@ -8,7 +8,9 @@ import UIKit
 
 class ViewController: UIViewController {
     let juiceMaker = JuiceMaker()
-
+    
+    juiceMaker
+    
     @IBOutlet weak var strawberryCount: UILabel!
     @IBOutlet weak var bananaCount: UILabel!
     @IBOutlet weak var pineappleCount: UILabel!
@@ -16,7 +18,29 @@ class ViewController: UIViewController {
     @IBOutlet weak var mangoCount: UILabel!
     
     @objc func changeStock(_ noti: NSNotification) {
-
+        guard let fruitList = noti.userInfo else {
+            return
+        }
+        
+        for (key, stock) in fruitList {
+            guard let fruitStock = stock as? Int else {
+                return
+            }
+            switch key as? Fruit {
+            case .strawberry:
+                strawberryCount.text = String(fruitStock)
+            case .banana:
+                bananaCount.text = String(fruitStock)
+            case .pineapple:
+                pineappleCount.text = String(fruitStock)
+            case .kiwi:
+                kiwiCount.text = String(fruitStock)
+            case .mango:
+                mangoCount.text = String(fruitStock)
+            default:
+                break
+            }
+        }
     }
     
     @IBAction func orderButton(_ sender: UIButton) {
@@ -54,6 +78,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(changeStock(_:)), name: Notification.Name("changeStock"), object: nil)
-        NotificationCenter.default.post(name: Notification.Name("changeStock"), object: nil)
+        //juiceMaker.updateStock()
+        //fruitStore에 접근하기 위해선 juiceMaker를 통해야한다.
     }
 }

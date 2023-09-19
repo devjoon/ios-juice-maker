@@ -4,8 +4,10 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
+import Foundation
+
 class JuiceMaker {
-    private var fruitStore = FruitStore.shared
+    private(set) var fruitStore = FruitStore(stock: 20)
     
     func takeOrder(order: Menu) throws {
         let recipe = fetchRecipe(menu: order)
@@ -18,10 +20,15 @@ class JuiceMaker {
         print("\(order.rawValue)가 제작되었습니다.")
     }
     
+    func updateStock() {
+        fruitStore.updateStock()
+    }
+    
     private func grindJuice(recipe: [Fruit: Int]) {
         for (fruit, quantity) in recipe {
             fruitStore.reduceStock(fruit: fruit, quantity: quantity)
         }
+        NotificationCenter.default.post(name: Notification.Name("changeStock"), object: nil, userInfo: fruitStore.fruitList)
     }
     
     private func fetchRecipe(menu: Menu) -> [Fruit: Int] {

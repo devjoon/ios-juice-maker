@@ -7,8 +7,13 @@
 import Foundation
 
 class FruitStore {
-    static let shared = FruitStore(stock: 20)
-    private var fruitList = [Fruit: Int]()
+    //static let shared = FruitStore(stock: 20)
+    private(set) var fruitList: [Fruit: Int] = [:] /*{
+        didSet {
+            NotificationCenter.default.post(name: Notification.Name("changeStock"), object: nil, userInfo: fruitList)
+        }
+    }
+                                                    */
         
     func reduceStock(fruit: Fruit, quantity: Int) {
         guard let stock = fruitList[fruit] else {
@@ -16,7 +21,6 @@ class FruitStore {
         }
         
         fruitList[fruit] = stock - quantity
-        NotificationCenter.default.post(name: Notification.Name("changeStock"), object: nil)
     }
     
     func checkIngredientStock(recipe: [Fruit: Int]) -> Bool {
@@ -32,7 +36,11 @@ class FruitStore {
         return true
     }
     
-    private init(stock: Int) {
+    func updateStock() {
+        NotificationCenter.default.post(name: Notification.Name("changeStock"), object: nil, userInfo: fruitList)
+    }
+    
+    init(stock: Int) {
         fruitList[.strawberry] = stock
         fruitList[.banana] = stock
         fruitList[.pineapple] = stock
