@@ -5,7 +5,7 @@
 // 
 
 class JuiceMaker {
-    private var fruitStore = FruitStore.shared
+    private(set) var fruitStore = FruitStore.shared
     
     func takeOrder(order: Menu) throws {
         let recipe = fetchRecipe(menu: order)

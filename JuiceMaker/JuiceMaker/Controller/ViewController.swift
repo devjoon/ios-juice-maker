@@ -16,7 +16,21 @@ class ViewController: UIViewController {
     @IBOutlet weak var mangoCount: UILabel!
     
     @objc func changeStock(_ noti: NSNotification) {
-
+        if let strawberryStock = juiceMaker.fruitStore.fruitList[.strawberry] {
+            strawberryCount.text = "\(strawberryStock)"
+        }
+        if let bananaStock = juiceMaker.fruitStore.fruitList[.banana] {
+            bananaCount.text = "\(bananaStock)"
+        }
+        if let pineappleStock = juiceMaker.fruitStore.fruitList[.pineapple] {
+            pineappleCount.text = "\(pineappleStock)"
+        }
+        if let kiwiStock = juiceMaker.fruitStore.fruitList[.kiwi] {
+            kiwiCount.text = "\(kiwiStock)"
+        }
+        if let mangoStock = juiceMaker.fruitStore.fruitList[.mango] {
+            mangoCount.text = "\(mangoStock)"
+        }
     }
     
     @IBAction func orderButton(_ sender: UIButton) {
