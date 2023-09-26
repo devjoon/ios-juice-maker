@@ -20,6 +20,8 @@ class FruitStoreViewController: UIViewController {
     @IBOutlet weak var kiwiStepper: UIStepper!
     @IBOutlet weak var mangoStepper: UIStepper!
     
+    @IBOutlet var stepperCollection: [UIStepper]!
+    
     var fruitList: [Fruit: Int] = [:]
     private var fruitLabelDictionary: [Fruit: UILabel] = [:]
     var delegate: testDelegate?

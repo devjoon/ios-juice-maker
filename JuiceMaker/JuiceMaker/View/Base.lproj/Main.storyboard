@@ -410,7 +410,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Title" id="6p5-nU-fjr">
-                                        <barButtonItem key="rightBarButtonItem" style="plain" id="ce8-a2-oWi">
+                                        <barButtonItem key="rightBarButtonItem" id="ce8-a2-oWi">
                                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="VDD-FP-eyH">
                                                 <rect key="frame" x="667" y="4.6666666666666679" width="110" height="35"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -446,6 +446,7 @@
                         <outlet property="pineappleStepper" destination="Rcr-xr-eqz" id="xjQ-Ky-3q0"/>
                         <outlet property="strawberryCount" destination="0yV-kn-zaT" id="YAE-WY-DgE"/>
                         <outlet property="strawberryStepper" destination="ZQk-f4-zrz" id="kZN-7H-zNu"/>
+                        <outletCollection property="stepperCollection" destination="ZQk-f4-zrz" collectionClass="NSMutableArray" id="Exs-PU-c8J"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ieh-6D-g1l" sceneMemberID="firstResponder"/>
