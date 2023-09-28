@@ -24,11 +24,8 @@ final class FruitStoreViewController: UIViewController {
         guard let fruit = Fruit(rawValue: index) else {
             return nil
         }
-        guard let fruitStock = fruitList[fruit] else {
-            return nil
-        }
         
-        return fruitStock
+        return fruitList[fruit]
     }
     
     private func initFruitCollection() {

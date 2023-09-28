@@ -9,20 +9,20 @@ import Foundation
 final class FruitStore {
     private(set) var fruitList = [Fruit: Int]()
     var delegate: manageStockDelegate?
-
+    
     func updateStock(modifiedList: [Fruit: Int]) {
         for (fruit, stock) in modifiedList {
             fruitList[fruit] = stock
         }
-        delegate?.refreshStock()
+        delegate?.refreshAllStock()
     }
     
     func reduceStock(fruit: Fruit, quantity: Int) {
         guard let stock = fruitList[fruit] else {
             return
         }
-        
         fruitList[fruit] = stock - quantity
+        delegate?.refreshStock(fruit: fruit, stock: stock - quantity)
     }
     
     func checkIngredientStock(recipe: [Fruit: Int]) -> Bool {

@@ -7,8 +7,9 @@
 import UIKit
 
 protocol manageStockDelegate {
-    func updateStock(fruitList: [Fruit: Int])
-    func refreshStock()
+    func updateStock(fruitList: [Fruit: Int]) // 특수 - 서브뷰컨 값을 적용시키기 위함.
+    func refreshAllStock()
+    func refreshStock(fruit: Fruit, stock: Int)
 }
 
 final class JuiceMakerViewController: UIViewController, manageStockDelegate {
@@ -19,11 +20,10 @@ final class JuiceMakerViewController: UIViewController, manageStockDelegate {
         super.viewDidLoad()
         fruitCountLabels.sort(by: {$0.tag < $1.tag})
         configureDelegate()
-        refreshStock()
+        refreshAllStock()
     }
     
     private func configureDelegate() {
-        juiceMaker.delegate = self
         juiceMaker.fruitStore.delegate = self
     }
     
@@ -31,7 +31,7 @@ final class JuiceMakerViewController: UIViewController, manageStockDelegate {
         juiceMaker.fruitStore.updateStock(modifiedList: fruitList)
     }
     
-    func refreshStock() {
+    func refreshAllStock() {
         for (index, label) in fruitCountLabels.enumerated() {
             guard let fruit = Fruit(rawValue: index) else {
                 return
@@ -42,6 +42,10 @@ final class JuiceMakerViewController: UIViewController, manageStockDelegate {
             
             label.text = String(fruitStock)
         }
+    }
+    
+    func refreshStock(fruit: Fruit, stock: Int) {
+        fruitCountLabels[fruit.rawValue].text = String(stock)
     }
     
     @IBAction private func touchUpInsideOrderButton(_ sender: UIButton) {
