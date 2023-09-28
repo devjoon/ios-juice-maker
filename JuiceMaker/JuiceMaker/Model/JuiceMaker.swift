@@ -7,6 +7,7 @@ import UIKit
 
 final class JuiceMaker {
     private(set) var fruitStore = FruitStore(stock: 10)
+    var delegate: manageStockDelegate?
     
     func takeOrder(order: Menu) throws {
         let recipe = fetchRecipe(menu: order)
@@ -22,7 +23,7 @@ final class JuiceMaker {
         for (fruit, quantity) in recipe {
             fruitStore.reduceStock(fruit: fruit, quantity: quantity)
         }
-        NotificationCenter.default.post(name: Notification.Name(OccurNotification.refreshStock.rawValue), object: nil)
+        delegate?.refreshStock()
     }
     
     private func fetchRecipe(menu: Menu) -> [Fruit: Int] {

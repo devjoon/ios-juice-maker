@@ -8,6 +8,7 @@ import UIKit
 
 protocol manageStockDelegate {
     func updateStock(fruitList: [Fruit: Int])
+    func refreshStock()
 }
 
 final class JuiceMakerViewController: UIViewController, manageStockDelegate {
@@ -17,19 +18,20 @@ final class JuiceMakerViewController: UIViewController, manageStockDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         fruitCountLabels.sort(by: {$0.tag < $1.tag})
-        configureNotificationCenter()
+        configureDelegate()
+        refreshStock()
     }
     
-    private func configureNotificationCenter() {
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshStock(_:)), name: Notification.Name(OccurNotification.refreshStock.rawValue), object: nil)
-        NotificationCenter.default.post(name: Notification.Name(OccurNotification.refreshStock.rawValue), object: nil)
+    private func configureDelegate() {
+        juiceMaker.delegate = self
+        juiceMaker.fruitStore.delegate = self
     }
     
     func updateStock(fruitList: [Fruit: Int]) {
         juiceMaker.fruitStore.updateStock(modifiedList: fruitList)
     }
     
-    @objc private func refreshStock(_ noti: NSNotification) {
+    func refreshStock() {
         for (index, label) in fruitCountLabels.enumerated() {
             guard let fruit = Fruit(rawValue: index) else {
                 return

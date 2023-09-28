@@ -8,12 +8,13 @@ import Foundation
 
 final class FruitStore {
     private(set) var fruitList = [Fruit: Int]()
-        
+    var delegate: manageStockDelegate?
+
     func updateStock(modifiedList: [Fruit: Int]) {
         for (fruit, stock) in modifiedList {
             fruitList[fruit] = stock
         }
-        NotificationCenter.default.post(name: Notification.Name(OccurNotification.refreshStock.rawValue), object: nil)
+        delegate?.refreshStock()
     }
     
     func reduceStock(fruit: Fruit, quantity: Int) {
